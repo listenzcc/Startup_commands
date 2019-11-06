@@ -13,12 +13,17 @@ Python env should be activated using `conda init <shell name>`.
 ### Install posh-git and oh-my-posh
 
 > `Install-Module posh-git`  
-> `Install-Module oh-my-posh`
+> `Install-Module oh-my-posh`  
+> `Install-Module DirColors`  
+> Use `-Scope CurrentUser` for current user only
 
 ### Setup oh-my-posh theme
 
-> `Notepad $profile`  
-> Put `'Set-Theme Honukai'` into `$profile`
+> Edit `$profile` file, make sure it contains:  
+>> Import-Module DirColors  
+>> Import-Module posh-git  
+>> Import-Module oh-my-posh  
+>> Set-Theme Honukai  
 
 ## VSCode
 
@@ -27,21 +32,63 @@ Python env should be activated using `conda init <shell name>`.
 ### Addons
 
 * vim
-
->     Bind keys: 
->     "vim.insertModeKeyBindings": [
->     {
->         "before": ["j", "j"],
->         "after": ["<Esc>"],
->     }
->     ],
->     "vim.handleKeys": {
->         "<C-d>": true,
->         "<C-f>": false,
->         "<C-n>": false,
->         "<C-w>": false,
->     }
-
 * Python
 * TabNine
 * Markdown
+* Guides
+
+Example settings.json as following:  
+
+    // window
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "team.showWelcomeMessage": false,
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 0,
+
+    // python
+    "python.pythonPath": "C:\\Users\\liste\\Anaconda3\\pythonw.exe",
+    "python.formatting.provider": "yapf",
+    "vsintellicode.python.completionsEnabled": false,
+
+    // git
+    "git.autofetch": true,
+
+    // editor
+    "editor.fontSize": 16,
+    "editor.rules": [80, 120],
+    "editor.renderWhitespace": "all",
+    "editor.suggestSelection": "first",
+    "editor.renderControlCharacters": true,
+    "editor.renderIndentGuides": false,
+
+    // vim
+    "vim.autoSwitchInputMethod.enable": true,
+    "vim.autoSwitchInputMethod.obtainIMCmd": "C:\\Users\\liste\\OneDrive\\apps\\im-select.exe",
+    "vim.autoSwitchInputMethod.switchIMCmd": "C:\\Users\\liste\\OneDrive\\apps\\im-select.exe {im}",
+    "vim.autoSwitchInputMethod.defaultIM": "1033",
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+        "before": ["j", "j"],
+        "after": ["<Esc>"]
+        }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [";"],
+            "after": [":"],
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false, // select all
+        "<C-f>": false, // search
+        "<C-h>": false, // search and replace
+        "<C-n>": false, // new file
+        "<C-w>": false, // close fil
+    },

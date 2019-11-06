@@ -31,11 +31,13 @@ Python env should be activated using `conda init <shell name>`.
 
 ### Addons
 
+* Visual Studio IntellCode
 * vim
 * Python
 * TabNine
 * Markdown
 * Guides
+* GitLens
 
 Example settings.json as following:  
 
@@ -46,7 +48,7 @@ Example settings.json as following:
     "window.zoomLevel": 0,
 
     // python
-    "python.pythonPath": "C:\\Users\\liste\\Anaconda3\\pythonw.exe",
+    "python.pythonPath": "C:\\Users\\----\\Anaconda3\\pythonw.exe",
     "python.formatting.provider": "yapf",
     "vsintellicode.python.completionsEnabled": false,
 
@@ -63,8 +65,8 @@ Example settings.json as following:
 
     // vim
     "vim.autoSwitchInputMethod.enable": true,
-    "vim.autoSwitchInputMethod.obtainIMCmd": "C:\\Users\\liste\\OneDrive\\apps\\im-select.exe",
-    "vim.autoSwitchInputMethod.switchIMCmd": "C:\\Users\\liste\\OneDrive\\apps\\im-select.exe {im}",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "C:\\Users\\----\\OneDrive\\apps\\im-select.exe",
+    "vim.autoSwitchInputMethod.switchIMCmd": "C:\\Users\\----\\OneDrive\\apps\\im-select.exe {im}",
     "vim.autoSwitchInputMethod.defaultIM": "1033",
     "vim.easymotion": true,
     "vim.sneak": true,

@@ -15,7 +15,8 @@ Python env should be activated using `conda init <shell name>`.
 > `Install-Module posh-git`  
 > `Install-Module oh-my-posh`  
 > `Install-Module DirColors`  
-> Use `-Scope CurrentUser` for current user only
+> Use `-Scope CurrentUser` for installing on current user only  
+> If a command fails, try `-ErrorAction SilentlyContinue`
 
 ### Setup oh-my-posh theme
 

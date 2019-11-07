@@ -10,21 +10,27 @@ Python env should be activated using `conda init <shell name>`.
 
 ## Powershell
 
-### Install posh-git and oh-my-posh
+### Install packages
 
-> `Install-Module posh-git`  
-> `Install-Module oh-my-posh`  
-> `Install-Module DirColors`  
-> Use `-Scope CurrentUser` for installing on current user only  
-> If a command fails, try `-ErrorAction SilentlyContinue`
+> PackageManagement (a.k.a. OneGet) is a new way to discover and install software packages from around the web.
+> It is a manager or multiplexor of existing package managers (also called package providers) that unifies Windows package management with a single Windows PowerShell interface. With PackageManagement, you can do the following.  
+>
+> - Manage a list of software repositories in which packages can be searched, acquired and installed
+> - Discover software packages 
+> - Seamlessly install, uninstall, and inventory packages from one or more software repositories 
+There are suggestion packages can be found from [PowerShell Gallery](https://www.powershellgallery.com/).
 
-### Setup oh-my-posh theme
+| Name | Description |
+| -------- | --------------------------------|
+| oh-my-posh | A theme engine for Powershell in ConEmu inspired by the work done by Chris Benti on PS-Config and Oh-My-ZSH on OSX and Linux (hence the name).  |
+| DirColors | Provides dircolors-like functionality to all System.IO.FilesystemInfo formatters. |
+| cd-extras | cd conveniences from bash and zsh. |
+| PowerTab | A module that enhances PowerShell's tab expansion. |
+| PersistentHistory | Incremental history tracking. |
 
-> Edit `$profile` file, make sure it contains:  
->> Import-Module DirColors  
->> Import-Module posh-git  
->> Import-Module oh-my-posh  
->> Set-Theme Honukai  
+Use `-Scope CurrentUser` for current user only.
+
+Use Import-Module _[name]_ to enable module.
 
 ## VSCode
 
@@ -32,13 +38,13 @@ Python env should be activated using `conda init <shell name>`.
 
 ### Addons
 
-* Visual Studio IntellCode
-* vim
-* Python
-* TabNine
-* Markdown
-* Guides
-* GitLens
+- Visual Studio IntellCode
+- vim
+- Python
+- TabNine
+- Markdown
+- Guides
+- GitLens
 
 Example settings.json as following:  
 
@@ -93,5 +99,7 @@ Example settings.json as following:
         "<C-f>": false, // search
         "<C-h>": false, // search and replace
         "<C-n>": false, // new file
-        "<C-w>": false, // close fil
+        "<C-w>": false, // close file
+        "<C-c>": false, // copy
+        "<C-v>": false, // paste
     },

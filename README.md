@@ -102,4 +102,6 @@ Example settings.json as following:
         "<C-w>": false, // close file
         "<C-c>": false, // copy
         "<C-v>": false, // paste
+        "<C-o>": false, // Editor open
+        "<C-r>": false, // Editor history
     },

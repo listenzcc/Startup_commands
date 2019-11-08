@@ -16,8 +16,9 @@ Python env should be activated using `conda init <shell name>`.
 > It is a manager or multiplexor of existing package managers (also called package providers) that unifies Windows package management with a single Windows PowerShell interface. With PackageManagement, you can do the following.  
 >
 > - Manage a list of software repositories in which packages can be searched, acquired and installed
-> - Discover software packages 
-> - Seamlessly install, uninstall, and inventory packages from one or more software repositories 
+> - Discover software packages
+> - Seamlessly install, uninstall, and inventory packages from one or more software repositories
+
 There are suggestion packages can be found from [PowerShell Gallery](https://www.powershellgallery.com/).
 
 | Name | Description |
@@ -28,9 +29,57 @@ There are suggestion packages can be found from [PowerShell Gallery](https://www
 | PowerTab | A module that enhances PowerShell's tab expansion. |
 | PersistentHistory | Incremental history tracking. |
 
-Use `-Scope CurrentUser` for current user only.
+Some notes:  
 
-Use Import-Module _[name]_ to enable module.
+- Use `-Scope CurrentUser` for current user only.
+- Use `Import-Module <name>` to enable module.
+- Use `$PROFILE` to find out the path of `startup scripts`,  
+The file named as `Microsoft.PowerShell_profile.ps1` takes effect only on Win10 native powershell app.  
+Creat a file named as `profile.ps1` besides it, that is an overall effective startup script.
+
+My current profile.ps1 is like:  
+
+    # Save Command History
+    $HistoryPath = "$env:USERPROFILE\Documents\WindowsPowerShell\History"
+    If (Test-Path "${HistoryPath}\History.csv")  {
+        Import-Csv "${HistoryPath}\History.csv" | Add-History
+    }
+    ElseIf (!(Test-Path $HistoryPath)) {
+        New-Item -Path $HistoryPath -ItemType Directory
+    }
+    Register-EngineEvent -SourceIdentifier powershell.exiting -SupportEvent -Action {Get-History | Select-Object -Last 100 | Export-Csv -Path "${HistoryPath}\History.csv"}
+    
+    # Save Passed Pathes
+    $PassedPath = "$env:USERPROFILE\Documents\WindowsPowerShell\PassedPath"
+    If (!(Test-Path $PassedPath)) {
+        New-Item -Path $PassedPath -ItemType Directory
+    }
+    $ObjShell = New-Object -COM WScript.Shell
+    
+    Function Parse_Lnk($LnkName) {
+        $cwd = (Get-Location).ToString()
+        $Lnk = $ObjShell.CreateShortcut("$cwd/$LnkName")
+        $Lnk.TargetPath
+    }
+
+    Function CD_PassedPath() {
+        Set-Location $PassedPath
+        Get-ChildItem | Sort-Object LastWriteTime | Select-Object Name, LastWriteTime
+    }
+
+    Function CD_SaveLnk() {
+        Set-LocationEx $args[0]
+        $PwdInstance = (Get-Location)
+        $LnkName = $PwdInstance.ToString().Replace('\', '~').Replace(':', '~')
+        $Lnk = $ObjShell.CreateShortcut("$PassedPath\$LnkName.lnk")
+        $Lnk.TargetPath = $PwdInstance.ToString()
+        $Lnk.Save()
+    }
+    
+    Remove-Item Alias:\cd
+    Set-Alias -Name cd -Value CD_SaveLnk
+    Set-Alias -Name ch -Value CD_PassedPath
+    Set-Alias -Name pl -Value Parse_Lnk
 
 ## VSCode
 

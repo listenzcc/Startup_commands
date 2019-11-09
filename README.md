@@ -39,6 +39,13 @@ Creat a file named as `profile.ps1` besides it, that is an overall effective sta
 
 My current profile.ps1 is like:  
 
+    Import-Module Dircolors
+    Import-Module cd-extras
+    Import-Module PersistentHistory
+    # Import-Module posh-git
+    # Import-Module oh-my-posh
+    Set-Theme Honukai
+
     # Save Command History
     $HistoryPath = "$env:USERPROFILE\Documents\WindowsPowerShell\History"
     If (Test-Path "${HistoryPath}\History.csv")  {
@@ -48,14 +55,14 @@ My current profile.ps1 is like:
         New-Item -Path $HistoryPath -ItemType Directory
     }
     Register-EngineEvent -SourceIdentifier powershell.exiting -SupportEvent -Action {Get-History | Select-Object -Last 100 | Export-Csv -Path "${HistoryPath}\History.csv"}
-    
+
     # Save Passed Pathes
     $PassedPath = "$env:USERPROFILE\Documents\WindowsPowerShell\PassedPath"
     If (!(Test-Path $PassedPath)) {
         New-Item -Path $PassedPath -ItemType Directory
     }
     $ObjShell = New-Object -COM WScript.Shell
-    
+
     Function Parse_Lnk($LnkName) {
         $cwd = (Get-Location).ToString()
         $Lnk = $ObjShell.CreateShortcut("$cwd/$LnkName")
@@ -63,23 +70,59 @@ My current profile.ps1 is like:
     }
 
     Function CD_PassedPath() {
-        Set-Location $PassedPath
-        Get-ChildItem | Sort-Object LastWriteTime | Select-Object Name, LastWriteTime
+        Set-LocationEx $PassedPath
+        $Lnks = Get-ChildItem | Sort-Object LastWriteTime
+        $Lnks_Last = $Lnks | Select-Object Name -Last 5
+        [array]::Reverse($Lnks_Last)
+        $Lnks
+        For ($i=4; $i -ge 0; $i--) {
+            $name = Parse_Lnk $Lnks_Last[$i].Name
+            "[$i] $name"
+        }
+        
+        $j = Read-Host "Enter idx to cd"
+        If (!($j -eq '')) {
+            $name = Parse_Lnk $Lnks_Last[$j].Name
+            CD_SaveLnk $name
+        }
+    }
+
+    Function CD_Dir_or_Leaf($Name) {
+        If (!(Test-Path $Name)) {
+            throw "Invalid path $Name." 
+        }
+        If (Test-Path $Name -PathType Leaf) {
+            $Dir = (Get-Item $Name).Directory
+        } Else {
+            $Dir = $Name
+        }
+        Set-LocationEx $Dir
     }
 
     Function CD_SaveLnk() {
-        Set-LocationEx $args[0]
+        If ($args.get_length() -eq 0) {
+            Set-LocationEx $env:USERPROFILE
+        } ElseIf ($args[0].endsWith('.lnk')) {
+            Set-LocationEx (Parse_Lnk $args[0])
+        } Else {
+            CD_Dir_or_Leaf $args[0]
+        }
         $PwdInstance = (Get-Location)
-        $LnkName = $PwdInstance.ToString().Replace('\', '~').Replace(':', '~')
+        $LnkName = $PwdInstance.ToString().Replace('\', '~').Replace(':', '')
         $Lnk = $ObjShell.CreateShortcut("$PassedPath\$LnkName.lnk")
         $Lnk.TargetPath = $PwdInstance.ToString()
         $Lnk.Save()
     }
-    
+
     Remove-Item Alias:\cd
     Set-Alias -Name cd -Value CD_SaveLnk
     Set-Alias -Name ch -Value CD_PassedPath
     Set-Alias -Name pl -Value Parse_Lnk
+
+#region conda initialize
+# !! Contents within this block are managed by 'conda init' !!
+(& "C:\Users\nica\Anaconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
+#endregion
 
 ## VSCode
 

@@ -119,10 +119,10 @@ My current profile.ps1 is like:
     Set-Alias -Name ch -Value CD_PassedPath
     Set-Alias -Name pl -Value Parse_Lnk
 
-#region conda initialize
-# !! Contents within this block are managed by 'conda init' !!
-(& "C:\Users\nica\Anaconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
-#endregion
+    #region conda initialize
+    # !! Contents within this block are managed by 'conda init' !!
+    (& "C:\Users\nica\Anaconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
+    #endregion
 
 ## VSCode
 

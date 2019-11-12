@@ -8,11 +8,13 @@
 > How would that impact your business?
 [Anaconda](https://www.anaconda.com/) Enterprise supports your organization no matter the size, easily scaling from a single user on one laptop to thousands of machines. No headaches, no IT nightmares.
 
-### Easy start-up
+### Quick start-up
 
 Python env should be activated using `conda init <shell name>`.
 
 ### Virtual Environments Usage
+
+Thanks to this [blog](https://janakiev.com/blog/jupyter-virtual-envs/), which gives me a quick understandable summary.
 
 Virtual environment is a python feature [virtualenv](https://virtualenv.pypa.io/en/latest/).
 
@@ -42,7 +44,7 @@ Setting up ipykernel for Jupyter to use virtual environment.
 
     # Install ipykernel
     pip install --user ipykernel
-    # Add your virtual environment
+    # Add your virtual environment as a new jupyter kernel
     python -m ipykernel install --user --name=myenv
     # Output like following shows directory of kernel.json
     Installed kernelspec myenv in /home/user/.local/share/jupyter/kernels/myenv

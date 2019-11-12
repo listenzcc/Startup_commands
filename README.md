@@ -1,12 +1,69 @@
 # This is a software makeup for a brand new machine
 
+***
+
 ## Anaconda
 
 > Envision a world where data scientists can regularly deploy AI and machine learning projects into production at scale, quickly delivering insights into the hands of decision-makers.  
 > How would that impact your business?
 [Anaconda](https://www.anaconda.com/) Enterprise supports your organization no matter the size, easily scaling from a single user on one laptop to thousands of machines. No headaches, no IT nightmares.
 
+### Easy start-up
+
 Python env should be activated using `conda init <shell name>`.
+
+### Virtual Environments Usage
+
+Virtual environment is a python feature [virtualenv](https://virtualenv.pypa.io/en/latest/).
+
+    # For Python 2, you should install virtualenv to manage virtual environment
+    pip install --user virtualenv
+    # Create a virtual environment
+    virtualenv myenv
+
+    # For Python >= 3.3, you can create a virtual environment with venv, an already intergrated module
+    python -m venv myenv
+    # Activate the virtual environment using system sourcing methld like
+    source myenv/bin/activate  # In *nix system
+    . myenv/bin/activate  # In PowerShell (Not test yet)
+
+Virtual environment in anaconda is simpler.
+
+    # Create conda virtual environment
+    conda create -n myenv
+    # Use a specific Python version other than current
+    conda create -n myenv python=3.6
+    # Activate the virtual environment
+    conda activate myenv
+    # Remove an environment
+    conda env remove -n myenv
+
+Setting up ipykernel for Jupyter to use virtual environment.
+
+    # Install ipykernel
+    pip install --user ipykernel
+    # Add your virtual environment
+    python -m ipykernel install --user --name=myenv
+    # Output like following shows directory of kernel.json
+    Installed kernelspec myenv in /home/user/.local/share/jupyter/kernels/myenv
+    # A kernel.json file in the directory shows the kernel
+    {
+        "argv": [
+            "/home/user/anaconda3/envs/myenv/bin/python",  # Make sure the path is correct.
+            "-m",
+            "ipykernel_launcher",
+            "-f",
+            "{connection_file}"
+        ],
+        "display_name": "myenv",
+        "language": "python"
+    }
+    # List installed kernels
+    jupyter kernelspec list
+    # Uninstall a kernel
+    jupyter kernelspec uninstall myenv
+
+***
 
 ## Powershell
 
@@ -123,6 +180,8 @@ My current profile.ps1 is like:
     # !! Contents within this block are managed by 'conda init' !!
     (& "C:\Users\nica\Anaconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
     #endregion
+
+***
 
 ## VSCode
 

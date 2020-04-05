@@ -1,12 +1,22 @@
-# This is a software makeup for a brand new machine
+# Software makeup for a brand new machine
 
-***
+- [Software makeup for a brand new machine](#software-makeup-for-a-brand-new-machine)
+  - [Anaconda](#anaconda)
+    - [Quick start-up](#quick-start-up)
+    - [Virtual Environments Usage](#virtual-environments-usage)
+  - [Powershell](#powershell)
+    - [Install packages](#install-packages)
+    - [Current profile](#current-profile)
+  - [VSCode](#vscode)
+    - [Addons](#addons)
+
+---
 
 ## Anaconda
 
 > Envision a world where data scientists can regularly deploy AI and machine learning projects into production at scale, quickly delivering insights into the hands of decision-makers.  
 > How would that impact your business?
-[Anaconda](https://www.anaconda.com/) Enterprise supports your organization no matter the size, easily scaling from a single user on one laptop to thousands of machines. No headaches, no IT nightmares.
+> [Anaconda](https://www.anaconda.com/) Enterprise supports your organization no matter the size, easily scaling from a single user on one laptop to thousands of machines. No headaches, no IT nightmares.
 
 ### Quick start-up
 
@@ -18,37 +28,51 @@ Thanks to this [blog](https://janakiev.com/blog/jupyter-virtual-envs/), which gi
 
 Virtual environment is a python feature [virtualenv](https://virtualenv.pypa.io/en/latest/).
 
-    # For Python 2, you should install virtualenv to manage virtual environment
-    pip install --user virtualenv
-    # Create a virtual environment
-    virtualenv myenv
+```zsh
+# For Python 2, you should install virtualenv to manage virtual environment
+pip install --user virtualenv
+# Create a virtual environment
+virtualenv myenv
 
-    # For Python >= 3.3, you can create a virtual environment with venv, an already intergrated module
-    python -m venv myenv
-    # Activate the virtual environment using system sourcing methld like
-    source myenv/bin/activate  # In *nix system
-    . myenv/bin/activate  # In PowerShell (Not test yet)
+# For Python >= 3.3, you can create a virtual environment with venv, an already intergrated module
+python -m venv myenv
+
+# Activate the virtual environment using system sourcing methld like
+source myenv/bin/activate  # In Unix system
+. myenv/bin/activate  # In PowerShell (Not test yet)
+```
 
 Virtual environment in anaconda is simpler.
 
-    # Create conda virtual environment
-    conda create -n myenv
-    # Use a specific Python version other than current
-    conda create -n myenv python=3.6
-    # Activate the virtual environment
-    conda activate myenv
-    # Remove an environment
-    conda env remove -n myenv
+```powershell
+# Create conda virtual environment
+conda create -n myenv
+# Use a specific Python version other than current
+conda create -n myenv python=3.6
+# Activate the virtual environment
+conda activate myenv
+# Remove an environment
+conda env remove -n myenv
+```
 
 Setting up ipykernel for Jupyter to use virtual environment.
 
-    # Install ipykernel
-    pip install --user ipykernel
-    # Add your virtual environment as a new jupyter kernel
-    python -m ipykernel install --user --name=myenv
-    # Output like following shows directory of kernel.json
-    Installed kernelspec myenv in /home/user/.local/share/jupyter/kernels/myenv
-    # A kernel.json file in the directory shows the kernel
+```powershell
+# Install ipykernel
+pip install --user ipykernel
+# Add your virtual environment as a new jupyter kernel
+python -m ipykernel install --user --name=myenv
+# Output like following shows directory of kernel.json
+Installed kernelspec myenv in /home/user/.local/share/jupyter/kernels/myenv
+# List installed kernels
+jupyter kernelspec list
+# Uninstall a kernel
+jupyter kernelspec uninstall myenv
+```
+
+A kernel.json file in the directory shows the kernel
+
+```json
     {
         "argv": [
             "/home/user/anaconda3/envs/myenv/bin/python",  # Make sure the path is correct.
@@ -60,19 +84,16 @@ Setting up ipykernel for Jupyter to use virtual environment.
         "display_name": "myenv",
         "language": "python"
     }
-    # List installed kernels
-    jupyter kernelspec list
-    # Uninstall a kernel
-    jupyter kernelspec uninstall myenv
+```
 
-***
+---
 
 ## Powershell
 
 ### Install packages
 
 > PackageManagement (a.k.a. OneGet) is a new way to discover and install software packages from around the web.
-> It is a manager or multiplexor of existing package managers (also called package providers) that unifies Windows package management with a single Windows PowerShell interface. With PackageManagement, you can do the following.  
+> It is a manager or multiplexor of existing package managers (also called package providers) that unifies Windows package management with a single Windows PowerShell interface. With PackageManagement, you can do the following.
 >
 > - Manage a list of software repositories in which packages can be searched, acquired and installed
 > - Discover software packages
@@ -80,110 +101,164 @@ Setting up ipykernel for Jupyter to use virtual environment.
 
 There are suggestion packages can be found from [PowerShell Gallery](https://www.powershellgallery.com/).
 
-| Name | Description |
-| -------- | --------------------------------|
-| oh-my-posh | A theme engine for Powershell in ConEmu inspired by the work done by Chris Benti on PS-Config and Oh-My-ZSH on OSX and Linux (hence the name).  |
-| DirColors | Provides dircolors-like functionality to all System.IO.FilesystemInfo formatters. |
-| cd-extras | cd conveniences from bash and zsh. |
-| PowerTab | A module that enhances PowerShell's tab expansion. |
-| PersistentHistory | Incremental history tracking. |
+| Name              | Description                                                                                                                                    |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| oh-my-posh        | A theme engine for Powershell in ConEmu inspired by the work done by Chris Benti on PS-Config and Oh-My-ZSH on OSX and Linux (hence the name). |
+| DirColors         | Provides dircolors-like functionality to all System.IO.FilesystemInfo formatters.                                                              |
+| cd-extras         | cd conveniences from bash and zsh.                                                                                                             |
+| PowerTab          | A module that enhances PowerShell's tab expansion.                                                                                             |
+| PersistentHistory | Incremental history tracking.                                                                                                                  |
 
-Some notes:  
+Some notes:
 
 - Use `-Scope CurrentUser` for current user only.
 - Use `Import-Module <name>` to enable module.
 - Use `$PROFILE` to find out the path of `startup scripts`,  
-The file named as `Microsoft.PowerShell_profile.ps1` takes effect only on Win10 native powershell app.  
-Creat a file named as `profile.ps1` besides it, that is an overall effective startup script.
+  The file named as `Microsoft.PowerShell_profile.ps1` takes effect only on Win10 native powershell app.  
+  Creat a file named as `profile.ps1` besides it, that is an overall effective startup script.
 
-My current profile.ps1 is like:  
+### Current profile
 
-    Import-Module Dircolors
-    Import-Module cd-extras
-    Import-Module PersistentHistory
-    # Import-Module posh-git
-    # Import-Module oh-my-posh
-    Set-Theme Honukai
+```powershell
+# Import modules
+Import-Module cd-extras
+Import-Module Dircolors
+Import-Module PersistentHistory
+# Import-Module posh-git
+Import-Module oh-my-posh
+Import-Module PSEverything
+Set-Theme Honukai
 
-    # Save Command History
-    $HistoryPath = "$env:USERPROFILE\Documents\WindowsPowerShell\History"
-    If (Test-Path "${HistoryPath}\History.csv")  {
-        Import-Csv "${HistoryPath}\History.csv" | Add-History
-    }
-    ElseIf (!(Test-Path $HistoryPath)) {
-        New-Item -Path $HistoryPath -ItemType Directory
-    }
-    Register-EngineEvent -SourceIdentifier powershell.exiting -SupportEvent -Action {Get-History | Select-Object -Last 100 | Export-Csv -Path "${HistoryPath}\History.csv"}
+# Save Command History
+$HistoryPath = "$env:USERPROFILE\Documents\WindowsPowerShell\History"
+If (Test-Path "${HistoryPath}\History.csv") {
+    Import-Csv "${HistoryPath}\History.csv" | Add-History
+}
+ElseIf (!(Test-Path $HistoryPath)) {
+    New-Item -Path $HistoryPath -ItemType Directory
+}
+Register-EngineEvent -SourceIdentifier powershell.exiting -SupportEvent -Action { Get-History | Select-Object -Last 100 | Export-Csv -Path "${HistoryPath}\History.csv" }
 
-    # Save Passed Pathes
-    $PassedPath = "$env:USERPROFILE\Documents\WindowsPowerShell\PassedPath"
-    If (!(Test-Path $PassedPath)) {
-        New-Item -Path $PassedPath -ItemType Directory
-    }
-    $ObjShell = New-Object -COM WScript.Shell
+# Mkdir Passed Pathes
+$PassedPath = "$env:USERPROFILE\Documents\WindowsPowerShell\PassedPath"
+If (!(Test-Path $PassedPath)) {
+    New-Item -Path $PassedPath -ItemType Directory
+}
 
-    Function Parse_Lnk($LnkName) {
-        $cwd = (Get-Location).ToString()
-        $Lnk = $ObjShell.CreateShortcut("$cwd/$LnkName")
-        $Lnk.TargetPath
-    }
+# Init ObjShell
+$ObjShell = New-Object -COM WScript.Shell
 
-    Function CD_PassedPath() {
-        Set-LocationEx $PassedPath
-        $Lnks = Get-ChildItem | Sort-Object LastWriteTime
-        $Lnks_Last = $Lnks | Select-Object Name -Last 5
-        [array]::Reverse($Lnks_Last)
-        $Lnks
-        For ($i=4; $i -ge 0; $i--) {
-            $name = Parse_Lnk $Lnks_Last[$i].Name
-            "[$i] $name"
-        }
-        
-        $j = Read-Host "Enter idx to cd"
-        If (!($j -eq '')) {
-            $name = Parse_Lnk $Lnks_Last[$j].Name
-            CD_SaveLnk $name
-        }
-    }
+# Parse lnk into legal path
+Function Parse_Lnk($LnkName) {
+    # Current dir
+    $cwd = (Get-Location).ToString()
+    # Path of file as {Lnk}
+    $Lnk = $ObjShell.CreateShortcut("$cwd/$LnkName")
+    # Return full name of the path
+    $Lnk.TargetPath
+}
 
-    Function CD_Dir_or_Leaf($Name) {
-        If (!(Test-Path $Name)) {
-            throw "Invalid path $Name." 
-        }
-        If (Test-Path $Name -PathType Leaf) {
-            $Dir = (Get-Item $Name).Directory
-        } Else {
-            $Dir = $Name
-        }
-        Set-LocationEx $Dir
+# CD to $PassedPath,
+# and ready to go passed pathes
+Function CD_PassedPath() {
+    # Stack current path
+    Set-LocationEx $PassedPath
+
+    # Get all lnks, and lastest 5 lnks
+    $Lnks = Get-ChildItem | Sort-Object LastWriteTime
+    $Lnks_Last = $Lnks | Select-Object Name -Last 5
+    $Lnks
+
+    # List lastest 5 lnks
+    # Make sure the lastest is the first
+    [array]::Reverse($Lnks_Last)
+    For ($i = 4; $i -ge 0; $i--) {
+        $name = Parse_Lnk $Lnks_Last[$i].Name
+        "[$i] $name"
     }
 
-    Function CD_SaveLnk() {
-        If ($args.get_length() -eq 0) {
-            Set-LocationEx $env:USERPROFILE
-        } ElseIf ($args[0].endsWith('.lnk')) {
-            Set-LocationEx (Parse_Lnk $args[0])
-        } Else {
-            CD_Dir_or_Leaf $args[0]
-        }
-        $PwdInstance = (Get-Location)
-        $LnkName = $PwdInstance.ToString().Replace('\', '~').Replace(':', '')
-        $Lnk = $ObjShell.CreateShortcut("$PassedPath\$LnkName.lnk")
-        $Lnk.TargetPath = $PwdInstance.ToString()
-        $Lnk.Save()
+    # Let user choose path to enter,
+    # return to current path if input is null.
+    $j = Read-Host "Enter idx to cd"
+    If (!($j -eq '')) {
+        $name = Parse_Lnk $Lnks_Last[$j].Name
+        CD_SaveLnk $name
     }
+    else {
+        Undo-Location
+    }
+}
 
-    Remove-Item Alias:\cd
-    Set-Alias -Name cd -Value CD_SaveLnk
-    Set-Alias -Name ch -Value CD_PassedPath
-    Set-Alias -Name pl -Value Parse_Lnk
+# CD to dir or leaf(file)
+Function CD_Dir_or_Leaf($Name) {
+    # If $Name is invalid dir, throw error.
+    If (!(Test-Path $Name)) {
+        throw "Invalid path $Name."
+    }
+    # Make $Dir,
+    # use directory if it is file.
+    If (Test-Path $Name -PathType Leaf) {
+        $Dir = (Get-Item $Name).Directory
+    }
+    Else {
+        $Dir = $Name
+    }
+    # CD to $Dir
+    Set-LocationEx $Dir
+}
 
-    #region conda initialize
-    # !! Contents within this block are managed by 'conda init' !!
-    (& "C:\Users\nica\Anaconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
-    #endregion
+# CD and save lnk into $PassedPath
+Function CD_SaveLnk() {
+    # Enter HOME if input is null
+    If ($args.get_length() -eq 0) {
+        Set-LocationEx $env:USERPROFILE
+    }
+    # Enter into the first input,
+    # parse lnk if needed
+    ElseIf ($args[0].endsWith('.lnk')) {
+        Set-LocationEx (Parse_Lnk $args[0])
+    }
+    Else {
+        CD_Dir_or_Leaf $args[0]
+    }
+    # Save current path into $PassedPath
+    $PwdInstance = (Get-Location)
+    $LnkName = $PwdInstance.ToString().Replace('\', '~').Replace(':', '')
+    $Lnk = $ObjShell.CreateShortcut("$PassedPath\$LnkName.lnk")
+    $Lnk.TargetPath = $PwdInstance.ToString()
+    $Lnk.Save()
+}
 
-***
+# Find pattern in history
+Function Find_Pattern_in_History() {
+    if ($args.get_length() -eq 0) {
+        Get-History
+    }
+    else {
+        Get-History | findstr $args
+    }
+}
+
+Remove-Item Alias:\cd
+Set-Alias -Name cd -Value CD_SaveLnk
+Set-Alias -Name ch -Value CD_PassedPath
+Set-Alias -Name ce -Value Undo-Location
+Set-Alias -Name pl -Value Parse_Lnk
+Set-Alias -Name hf -Value Find_Pattern_in_History
+
+$RoamingStateDir = 'C:\Users\zcc\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\RoamingState'
+
+if ($pwd.Path -eq 'C:\Windows\system32') {
+    Set-LocationEx
+}
+
+#region conda initialize
+# !! Contents within this block are managed by 'conda init' !!
+(& "C:\Users\zcc\Anaconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | Invoke-Expression
+#endregion
+```
+
+---
 
 ## VSCode
 
@@ -199,7 +274,7 @@ My current profile.ps1 is like:
 - Guides
 - GitLens
 
-Example settings.json as following:  
+Example settings.json as following:
 
     // window
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",

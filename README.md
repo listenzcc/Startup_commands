@@ -164,15 +164,17 @@ Function CD_PassedPath() {
     # Stack current path
     Set-LocationEx $PassedPath
 
-    # Get all lnks, and lastest 5 lnks
+    # Get all lnks, and lastest 10 lnks
     $Lnks = Get-ChildItem | Sort-Object LastWriteTime
-    $Lnks_Last = $Lnks | Select-Object Name -Last 5
-    $Lnks
+    $Lnks_Last = $Lnks | Select-Object Name -Last 10
 
-    # List lastest 5 lnks
+    # Whether to print all [Lnks] on process
+    # $Lnks
+
+    # List lastest 10 lnks
     # Make sure the lastest is the first
     [array]::Reverse($Lnks_Last)
-    For ($i = 4; $i -ge 0; $i--) {
+    For ($i = 9; $i -ge 0; $i--) {
         $name = Parse_Lnk $Lnks_Last[$i].Name
         "[$i] $name"
     }

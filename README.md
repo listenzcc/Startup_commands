@@ -73,17 +73,17 @@ jupyter kernelspec uninstall myenv
 A kernel.json file in the directory shows the kernel
 
 ```json
-    {
-        "argv": [
-            "/home/user/anaconda3/envs/myenv/bin/python",  # Make sure the path is correct.
-            "-m",
-            "ipykernel_launcher",
-            "-f",
-            "{connection_file}"
-        ],
-        "display_name": "myenv",
-        "language": "python"
-    }
+{
+    "argv": [
+        "/home/user/anaconda3/envs/myenv/bin/python",  # Make sure the path is correct.
+        "-m",
+        "ipykernel_launcher",
+        "-f",
+        "{connection_file}"
+    ],
+    "display_name": "myenv",
+    "language": "python"
+}
 ```
 
 ---
@@ -278,59 +278,116 @@ if ($pwd.Path -eq 'C:\Windows\system32') {
 
 Example settings.json as following:
 
-    // window
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "team.showWelcomeMessage": false,
-    "explorer.confirmDelete": false,
-    "window.zoomLevel": 0,
+```json
+// window
+"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+"team.showWelcomeMessage": false,
+"explorer.confirmDelete": false,
+"window.zoomLevel": 0,
 
-    // python
-    "python.pythonPath": "C:\\Users\\----\\Anaconda3\\pythonw.exe",
-    "python.formatting.provider": "yapf",
-    "vsintellicode.python.completionsEnabled": false,
+// python
+"python.pythonPath": "C:\\Users\\----\\Anaconda3\\pythonw.exe",
+"python.formatting.provider": "yapf",
+"vsintellicode.python.completionsEnabled": false,
 
-    // git
-    "git.autofetch": true,
+// git
+"git.autofetch": true,
 
-    // editor
-    "editor.fontSize": 16,
-    "editor.rules": [80, 120],
-    "editor.renderWhitespace": "all",
-    "editor.suggestSelection": "first",
-    "editor.renderControlCharacters": true,
-    "editor.renderIndentGuides": false,
+// editor
+"editor.fontSize": 16,
+"editor.rules": [80, 120],
+"editor.renderWhitespace": "all",
+"editor.suggestSelection": "first",
+"editor.renderControlCharacters": true,
+"editor.renderIndentGuides": false,
 
-    // vim
-    "vim.autoSwitchInputMethod.enable": true,
-    "vim.autoSwitchInputMethod.obtainIMCmd": "C:\\Users\\----\\OneDrive\\apps\\im-select.exe",
-    "vim.autoSwitchInputMethod.switchIMCmd": "C:\\Users\\----\\OneDrive\\apps\\im-select.exe {im}",
-    "vim.autoSwitchInputMethod.defaultIM": "1033",
-    "vim.easymotion": true,
-    "vim.sneak": true,
-    "vim.incsearch": true,
-    "vim.useSystemClipboard": true,
-    "vim.useCtrlKeys": true,
-    "vim.hlsearch": true,
-    "vim.insertModeKeyBindings": [
-        {
-        "before": ["j", "j"],
-        "after": ["<Esc>"]
-        }
-    ],
-    "vim.normalModeKeyBindings": [
-        {
-            "before": [";"],
-            "after": [":"],
-        }
-    ],
-    "vim.leader": "<space>",
-    "vim.handleKeys": {
-        "<C-a>": false, // select all
-        "<C-f>": false, // search
-        "<C-h>": false, // search and replace
-        "<C-n>": false, // new file
-        "<C-w>": false, // close file
-        "<C-c>": false, // copy
-        "<C-o>": false, // Editor open
-        "<C-r>": false, // Editor history
+// vim
+"vim.autoSwitchInputMethod.enable": true,
+"vim.autoSwitchInputMethod.obtainIMCmd": "C:\\Users\\----\\OneDrive\\apps\\im-select.exe",
+"vim.autoSwitchInputMethod.switchIMCmd": "C:\\Users\\----\\OneDrive\\apps\\im-select.exe {im}",
+"vim.autoSwitchInputMethod.defaultIM": "1033",
+"vim.easymotion": true,
+"vim.sneak": true,
+"vim.incsearch": true,
+"vim.useSystemClipboard": true,
+"vim.useCtrlKeys": true,
+"vim.hlsearch": true,
+"vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
     },
+    {
+      "before": ["o", "o", "o"],
+      "after": ["<Esc>", "o"]
+    }
+],
+"vim.normalModeKeyBindings": [
+    {
+      // ; as :
+      "before": [";"],
+      "after": [":"]
+    },
+    {
+      // <leader> v select block
+      "before": ["<leader>", "v"],
+      "after": ["(", "v", ")"]
+    },
+    {
+      // <leader> j select current line
+      "before": ["<leader>", "j"],
+      "after": ["^", "v", "$"]
+    },
+    {
+      // <leader> h select before
+      "before": ["<leader>", "h"],
+      "after": ["v", "^"]
+    },
+    {
+      // <leader> l select after
+      "before": ["<leader>", "l"],
+      "after": ["v", "$", "h"]
+    },
+    {
+      // <leader> n :nohl
+      "before": ["<leader>", "n"],
+      "after": [],
+      "commands": [
+        {
+          "command": ":nohl"
+        }
+      ]
+    },
+    {
+      // <leader> { wrap the word by {}
+      "before": ["<leader>", "{"],
+      "after": ["b", "i", "{", "<Esc>", "e", "a", "}", "<Esc>"]
+    },
+    {
+      // <leader> [ wrap the word by []
+      "before": ["<leader>", "["],
+      "after": ["b", "i", "[", "<Esc>", "e", "a", "]", "<Esc>"]
+    },
+    {
+      // <leader> ( wrap the word by ()
+      "before": ["<leader>", "("],
+      "after": ["b", "i", "(", "<Esc>", "e", "a", ")", "<Esc>"]
+    },
+    {
+      // <leader> ' wrap the word by ''
+      "before": ["<leader>", "'"],
+      "after": ["b", "i", "'", "<Esc>", "e", "a", "'", "<Esc>"]
+    }
+],
+"vim.leader": "<space>",
+"vim.handleKeys": {
+    "<C-a>": false, // select all
+    "<C-f>": false, // search
+    "<C-h>": false, // search and replace
+    "<C-n>": false, // new file
+    "<C-w>": false, // close file
+    "<C-c>": false, // copy
+    "<C-o>": false, // Editor open
+    "<C-r>": false, // Editor history
+},
+```

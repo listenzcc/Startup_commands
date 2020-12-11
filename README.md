@@ -106,7 +106,7 @@ There are suggestion packages can be found from [PowerShell Gallery](https://www
 | oh-my-posh        | A theme engine for Powershell in ConEmu inspired by the work done by Chris Benti on PS-Config and Oh-My-ZSH on OSX and Linux (hence the name). |
 | DirColors         | Provides dircolors-like functionality to all System.IO.FilesystemInfo formatters.                                                              |
 | cd-extras         | cd conveniences from bash and zsh.                                                                                                             |
-| PowerTab          | A module that enhances PowerShell's tab expansion.                                                                                             |
+| PowerTab          | A module that enhances PowerShell's tab expansion. !!! It will largely delay the start-up                                                      |
 | PersistentHistory | Incremental history tracking.                                                                                                                  |
 
 Some notes:
